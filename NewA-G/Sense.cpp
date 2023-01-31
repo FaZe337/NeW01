@@ -55,9 +55,6 @@ public:
             /*}
             else
             {
-                    player->setGlowEnable(7);
-                player->setGlowThroughWall(2);
-            }
                 player->setCustomGlow();
                 player->setCustomGlowRed();
             } */
