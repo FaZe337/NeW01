@@ -19,13 +19,7 @@ public:
             if (!player->isValid())
                 continue;
             if (player->getTeamNumber() == localPlayer->getTeamNumber())
-                continue;
-            if (player->isVisible())
-            {
-                player->setGlowEnable(5);
-                player->setGlowThroughWall(1);
-            }
-            
+                continue;                  
             //if (player->isVisible()){
 
                 player->setCustomGlow();
