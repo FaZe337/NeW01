@@ -10,7 +10,7 @@ class Sense
 {
 public:
     void update(Level *level, LocalPlayer *localPlayer, std::vector<Player *> *players, X11Utils *x11Utils)
- {
+    {
         if (!level->isPlayable())
             return;
         for (int i = 0; i < players->size(); i++)
@@ -21,7 +21,13 @@ public:
             if (player->getTeamNumber() == localPlayer->getTeamNumber())
                 continue;
             if (player->isVisible())
-                
+            {
+                player->setGlowEnable(5);
+                player->setGlowThroughWall(1);
+            }
+            
+            //if (player->isVisible()){
+
                 player->setCustomGlow();
                 player->setCustomGlowWhite();
 
@@ -43,13 +49,16 @@ public:
 
                 if(player->getShieldValue() <= 125){
                     player->setCustomGlowRed();
-              
+                }
+
+
             /*}
             else
             {
+                    player->setGlowEnable(7);
+                player->setGlowThroughWall(2);
+            }
                 player->setCustomGlow();
                 player->setCustomGlowRed();
             } */
         }
-    }
-};
