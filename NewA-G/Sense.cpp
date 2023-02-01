@@ -21,7 +21,7 @@ public:
             if (player->getTeamNumber() == localPlayer->getTeamNumber())
                 continue;
             if (player->isVisible())
-                
+                }
                 player->setCustomGlow();
                 player->setCustomGlowWhite();
 
