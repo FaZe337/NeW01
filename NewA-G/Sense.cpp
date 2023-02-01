@@ -9,14 +9,12 @@
 class Sense
 {
 private:
-    ConfigLoader *m_configLoader;
     Level *m_level;
     LocalPlayer *m_localPlayer;
     std::vector<Player *> *m_players;
     X11Utils *m_x11Utils;
 
 public:
-    Sense(ConfigLoader *configLoader,
           Level *level,
           LocalPlayer *localPlayer,
           std::vector<Player *> *players,
@@ -28,7 +26,7 @@ public:
         m_players = players;
         m_x11Utils = x11Utils;
     }
-    void update()
+    void update(Level *level, LocalPlayer *localPlayer, std::vector<Player *> *players, X11Utils *x11Utils)
     {
         if (!m_level->isPlayable())
             return;
