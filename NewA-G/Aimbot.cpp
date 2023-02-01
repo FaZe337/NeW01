@@ -145,18 +145,18 @@ public:
     {
         Player *closestPlayerSoFar = nullptr;
         double closestPlayerAngleSoFar;
-        for (int i = 0; i < m_players->size(); i++)
+        for (int i = 0; i < players->size(); i++)
         {
             Player *player = m_players->at(i);
             if (!player->isValid())
                 continue;
             if (player->isKnocked())
                 continue;
-            if (player->getTeamNumber() == m_localPlayer->getTeamNumber())
+            if (player->getTeamNumber() == localPlayer->getTeamNumber())
                 continue;
             if (!player->isVisible())
                 continue;
-            double desiredViewAngleYaw = calculateDesiredYaw(m_localPlayer->getLocationX(),
+            double desiredViewAngleYaw = calculateDesiredYaw(localPlayer->getLocationX(),
                                                              m_localPlayer->getLocationY(),
                                                              player->getLocationX(),
                                                              player->getLocationY());
