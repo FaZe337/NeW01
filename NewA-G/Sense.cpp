@@ -46,7 +46,7 @@ public:
               
                 player->setCustomGlow();
                 player->setCustomGlowRed();
-           /*}
+            /*}
             else
             {
                 player->setCustomGlow();
@@ -54,4 +54,4 @@ public:
             } */
         }
     }
-};  
+};
