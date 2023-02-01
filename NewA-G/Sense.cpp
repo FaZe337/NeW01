@@ -22,26 +22,8 @@ public:
                 continue;
             if (player->isVisible())
                player->setCustomGlow();
-                player->setCustomGlowWhite();
+                player->setCustomGlowRed();
 
-                if(player->getShieldValue() <= 10){
-                    player->setCustomGlowGreen();
-                } else
-
-                if(player->getShieldValue() <= 50){
-                    player->setCustomGlowWhite();
-                } else
-
-                if(player->getShieldValue() <= 75){
-                    player->setCustomGlowBlue();
-                } else
-
-                if(player->getShieldValue() <= 100){
-                    player->setCustomGlowPurple();
-                } else
-
-                if(player->getShieldValue() <= 125){
-                    player->setCustomGlowRed();
                 }
         }
     }
