@@ -23,7 +23,6 @@ public:
             if (player->isVisible())
                player->setCustomGlow();
                 player->setCustomGlowRed();
-
                 }
         }
     }
