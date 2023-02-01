@@ -44,8 +44,6 @@ public:
                 if(player->getShieldValue() <= 125){
                     player->setCustomGlowRed();
               
-                player->setCustomGlow();
-                player->setCustomGlowRed();
             /*}
             else
             {
