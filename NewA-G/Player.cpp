@@ -9,6 +9,20 @@ class Player
 private:
     int m_entityListIndex;
     float m_lastVisibleTime;
+    long m_basePointer = 0;
+    long getUnresolvedBasePointer()
+    {
+        long unresolvedBasePointer = offsets::REGION + offsets::ENTITY_LIST + ((m_entityListIndex + 1) << 5);
+        return unresolvedBasePointer;
+    }
+    long getBasePointer()
+    {
+        if (m_basePointer == 0)
+            m_basePointer = mem::ReadLong(getUnresolvedBasePointer());
+        return m_basePointer;
+    }
+
+public:
     Player(int entityListIndex)
     {
         m_entityListIndex = entityListIndex;
