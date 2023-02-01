@@ -15,7 +15,7 @@ public:
             return;
         for (int i = 0; i < players->size(); i++)
         {
-            Player *player = m_players->at(i);
+            Player *player = players->at(i);
             if (!player->isValid())
                 continue;
             if (player->getTeamNumber() == localPlayer->getTeamNumber())
