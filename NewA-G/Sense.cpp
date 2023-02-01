@@ -1,3 +1,4 @@
+
 #pragma once
 #include <vector>
 #include "LocalPlayer.cpp"
@@ -8,68 +9,28 @@
 
 class Sense
 {
-private:
-    Level *m_level;
-    LocalPlayer *m_localPlayer;
-    std::vector<Player *> *m_players;
-    X11Utils *m_x11Utils;
-
 public:
-          Level *level,
-          LocalPlayer *localPlayer,
-          std::vector<Player *> *players,
-          X11Utils *x11Utils)
-    {
-        m_configLoader = configLoader;
-        m_level = level;
-        m_localPlayer = localPlayer;
-        m_players = players;
-        m_x11Utils = x11Utils;
-    }
     void update(Level *level, LocalPlayer *localPlayer, std::vector<Player *> *players, X11Utils *x11Utils)
     {
-        if (!m_level->isPlayable())
+        if (!level->isPlayable())
             return;
-        for (int i = 0; i < m_players->size(); i++)
+        for (int i = 0; i < players->size(); i++)
         {
-            Player *player = m_players->at(i);
+            Player *player = players->at(i);
             if (!player->isValid())
                 continue;
-            if (player->getTeamNumber() == m_localPlayer->getTeamNumber())
+            if (player->getTeamNumber() == localPlayer->getTeamNumber())
                 continue;
-
-            //if (player->isVisible()){
-
-                player->setCustomGlow();
-                player->setCustomGlowWhite();
-
-                if(player->getShieldValue() <= 10){
-                    player->setCustomGlowGreen();
-                } else
-
-                if(player->getShieldValue() <= 50){
-                    player->setCustomGlowWhite();
-                } else
-
-                if(player->getShieldValue() <= 75){
-                    player->setCustomGlowBlue();
-                } else
-
-                if(player->getShieldValue() <= 100){
-                    player->setCustomGlowPurple();
-                } else
-
-                if(player->getShieldValue() <= 125){
-                    player->setCustomGlowRed();
-                }
-
-                
-            /*}
+            if (player->isVisible())
+            {
+                player->setGlowEnable(5);
+                player->setGlowThroughWall(1);
+            }
             else
             {
-                player->setCustomGlow();
-                player->setCustomGlowRed();
-            } */
+                player->setGlowEnable(7);
+                player->setGlowThroughWall(2);
+            }
         }
     }
 };
