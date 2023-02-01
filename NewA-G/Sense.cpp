@@ -9,19 +9,18 @@
 class Sense
 {
 public:
-    void update(Level *level, LocalPlayer *localPlayer, std::vector<Player *> *players, X11Utils *x11Utils)
     {
-        if (!level->isPlayable())
+        if (!m_level->isPlayable())
             return;
-        for (int i = 0; i < players->size(); i++)
+        for (int i = 0; i < m_players->size(); i++)
         {
-            Player *player = players->at(i);
+            Player *player = m_players->at(i);
             if (!player->isValid())
                 continue;
-            if (player->getTeamNumber() == localPlayer->getTeamNumber())
+            if (player->getTeamNumber() == m_localPlayer->getTeamNumber())
                 continue;
 
-            if (player->isVisible()){
+            //if (player->isVisible()){
 
                 player->setCustomGlow();
                 player->setCustomGlowWhite();
