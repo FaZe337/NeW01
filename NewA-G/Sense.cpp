@@ -1,3 +1,4 @@
+
 #pragma once
 #include <vector>
 #include "LocalPlayer.cpp"
@@ -21,9 +22,15 @@ public:
             if (player->getTeamNumber() == localPlayer->getTeamNumber())
                 continue;
             if (player->isVisible())
-               player->setCustomGlow();
-                player->setCustomGlowRed();
-                }
+            {
+                player->setGlowEnable(5);
+                player->setGlowThroughWall(1);
+            }
+            else
+            {
+                player->setGlowEnable(7);
+                player->setGlowThroughWall(2);
+            }
         }
     }
 };
