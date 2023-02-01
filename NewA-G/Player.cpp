@@ -9,13 +9,13 @@ class Player
 private:
     int m_entityListIndex;
     float m_lastVisibleTime;
+    long m_basePointer = 0;
 
 public:
     Player(int entityListIndex)
     {
         m_entityListIndex = entityListIndex;
     }
-
     long getUnresolvedBasePointer()
     {
         long unresolvedBasePointer = offsets::REGION + offsets::ENTITY_LIST + ((m_entityListIndex + 1) << 5);
@@ -23,8 +23,31 @@ public:
     }
     long getBasePointer()
     {
-        long basePointer = mem::ReadLong(getUnresolvedBasePointer());
-        return basePointer;
+        if (m_basePointer == 0)
+            m_basePointer = mem::ReadLong(getUnresolvedBasePointer());
+        return m_basePointer;
+    }
+    int get_m_entityListIndex() {
+        return m_entityListIndex;
+    }
+    void markForPointerResolution()
+    {
+        m_basePointer = 0;
+    }
+    void get_bone_pos(int bone_id, my_vector* bonepos) {
+        long basePointer = getBasePointer();
+        long ptrLong = basePointer + offsets::OFFSET_ORIGIN;
+        my_vector pos;
+        pos.x = mem::ReadFloat(ptrLong);
+        pos.y = mem::ReadFloat(ptrLong + 4);
+        pos.z = mem::ReadFloat(ptrLong + 8);
+
+        long bone_ptr = mem::ReadLong(basePointer + offsets::OFFSET_BONES);
+        int boneloc = (bone_id * 0x30);
+
+        bonepos->x = pos.x + mem::ReadFloat(bone_ptr + boneloc + 0xCC);
+        bonepos->y = pos.y + mem::ReadFloat(bone_ptr + boneloc + 0xCC + 4 + 0xC);
+        bonepos->z = pos.z + mem::ReadFloat(bone_ptr + boneloc + 0xCC + 4 + 0xC + 4 + 0xC);
     }
     bool isDead()
     {
@@ -46,6 +69,11 @@ public:
         long ptrLong = basePointer + offsets::NAME;
         std::string result = mem::ReadString(ptrLong);
         return result;
+    }
+    void getusername(char* buf, int size) {
+    	long nameIndex = mem::ReadLong(getBasePointer() + offsets::OFFSET_NAME_INDEX);
+	long nameOffset = mem::ReadLong(offsets::REGION + offsets::OFFSET_NAMELIST + ((nameIndex - 1) << 4));
+	mem::readbytearray(nameOffset, buf, size);
     }
     bool isValid()
     {
@@ -89,6 +117,21 @@ public:
         long ptrLong = basePointer + offsets::TEAM_NUMBER;
         int result = mem::ReadInt(ptrLong);
         return result;
+    }
+    void setGlowColor(float r, float g, float b)
+    {
+        long basePointer = getBasePointer();
+        long ptrLong = basePointer + offsets::OFFSET_GLOW_COLOR;
+        mem::WriteFloat(ptrLong, r);
+        mem::WriteFloat(ptrLong + 4, g);
+        mem::WriteFloat(ptrLong + 8, b);
+    }
+    void setGlowType(char t1, char t2, char t3, char t4)
+    {
+        long basePointer = getBasePointer();
+        long ptrLong = basePointer + offsets::OFFSET_GLOW_MODE;
+        char w_buf[4] = {t1, t2, t3, t4};
+        mem::writebytearray(ptrLong, w_buf, 4);
     }
     int getGlowEnable()
     {
