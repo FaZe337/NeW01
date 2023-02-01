@@ -1,4 +1,3 @@
-
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,11 +12,11 @@ private:
     Display *display = XOpenDisplay(NULL);
 
 public:
-    bool triggerKeyDown()
+    bool keyDown(int keyCode)
     {
         char keys_return[32];
         XQueryKeymap(display, keys_return);
-        KeyCode kc2 = XKeysymToKeycode(display, XK_Shift_L);
+        KeyCode kc2 = XKeysymToKeycode(display, keyCode);
         bool buttonDown = !!(keys_return[kc2 >> 3] & (1 << (kc2 & 7)));
         return buttonDown;
     }
@@ -45,3 +44,4 @@ public:
             fprintf(stderr, "Error\n");
         XFlush(display);
     }
+};
