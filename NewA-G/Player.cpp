@@ -9,9 +9,21 @@ class Player
 private:
     int m_entityListIndex;
     float m_lastVisibleTime;
+    long m_basePointer = 0;
+    long getUnresolvedBasePointer()
+    {
+        long unresolvedBasePointer = offsets::REGION + offsets::ENTITY_LIST + ((m_entityListIndex + 1) << 5);
+        return unresolvedBasePointer;
+    }
+    long getBasePointer()
+    {
+        if (m_basePointer == 0)
+            m_basePointer = mem::ReadLong(getUnresolvedBasePointer());
+        return m_basePointer;
+    }
 
 public:
-       Player(int entityListIndex)
+    Player(int entityListIndex)
     {
         m_entityListIndex = entityListIndex;
     }
@@ -235,6 +247,3 @@ public:
             std::cout << "\tTeamNumber:\t\t\t\t" + utils::convertNumberToString(getTeamNumber()) + "\n";
             std::cout << "\tGlowEnable:\t\t\t\t" + utils::convertNumberToString(getGlowEnable()) + "\n";
             std::cout << "\tGlowThroughWall:\t\t\t" + utils::convertNumberToString(getGlowThroughWall()) + "\n";
-        }
-    }
-};
