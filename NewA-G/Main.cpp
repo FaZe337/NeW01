@@ -11,7 +11,6 @@
 #include "Player.cpp"
 #include "Sense.cpp"
 #include "NoRecoil.cpp"
-#include "Aimbot.cpp"
 #include "X11Utils.cpp"
 
 bool senseOn = true;
