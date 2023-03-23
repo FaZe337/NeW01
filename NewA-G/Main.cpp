@@ -12,4 +12,3 @@
 #include "Sense.cpp"
 #include "NoRecoil.cpp"
 #include "X11Utils.cpp"
-#include "ConfigLoader.cpp"
